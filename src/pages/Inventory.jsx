@@ -17,7 +17,7 @@ const Inventory = () => {
 
     return(
         <div>
-            <h1>Estoque de Produtos</h1>
+            <h2>Estoque de Produtos</h2>
             <div className="product-list">
                 {products.map((product) => (
                     <Card key={product.id} title={product.title} description={product.description} />
