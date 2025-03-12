@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "../components/Card/Card";
+import '../styles/Inventory.css';
 
 const Inventory = () => {
     const products = [
@@ -16,7 +17,7 @@ const Inventory = () => {
     ]
 
     return(
-        <div>
+        <div className="inventory-container">
             <h2>Estoque de Produtos</h2>
             <div className="product-list">
                 {products.map((product) => (
