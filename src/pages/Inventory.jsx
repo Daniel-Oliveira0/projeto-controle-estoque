@@ -16,14 +16,17 @@ const Inventory = () => {
         },
     ]
 
-    return(
+    return (
         <div className="inventory-container">
             <h2>Estoque de Produtos</h2>
-            <div className="product-list">
+            <ul className="product-list">
                 {products.map((product) => (
-                    <Card key={product.id} title={product.title} description={product.description} />
+                    <li key={product.id} className="product-item">
+                        <h3>{product.title}</h3>
+                        <p>{product.description}</p>
+                    </li>
                 ))}
-            </div>
+            </ul>
         </div>
     )
 }
