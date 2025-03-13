@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../components/Card/Card";
+import AddProductForm from "../components/AddProductForm/AddProductForm";
 import '../styles/Inventory.css';
 
 const Inventory = () => {
-    const products = [
+    const [products, setProducts] = useState ([
         {
             id: 1,
             title: "Produto 1",
@@ -14,11 +15,18 @@ const Inventory = () => {
             title: "Produto 2",
             description: "Descrição do Produto 2"
         },
-    ]
+    ]);
+
+    const addProduct = (newProduct) => {
+        setProducts( (prevProducts) => [...prevProducts, newProduct]);
+    }
 
     return (
         <div className="inventory-container">
             <h2>Estoque de Produtos</h2>
+
+            <AddProductForm onAddProduct={addProduct}/>
+
             <ul className="product-list">
                 {products.map((product) => (
                     <li key={product.id} className="product-item">
