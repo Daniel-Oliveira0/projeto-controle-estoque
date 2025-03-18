@@ -94,7 +94,6 @@ button:hover {
 }
 
 button:active {
-    background-color: #e8bb84;
     transform: scale(1.05);
 }
 
@@ -112,3 +111,4 @@ button:active {
 .remove-btn:hover {
     background-color: #c0392b;
 }
+
