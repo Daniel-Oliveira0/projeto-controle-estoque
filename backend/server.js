@@ -37,6 +37,23 @@ app.post('/products', async (req, res) => {
   }
 });
 
+app.delete('/products/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM products WHERE id = $1 RETURNING *', [id]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Produto não encontrado' });
+    }
+
+    res.status(200).json({ message: 'Produto deletado com sucesso', deletedProduct: result.rows[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao deletar o produto' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Servidor rodando no http://localhost:${port}`);
 });
