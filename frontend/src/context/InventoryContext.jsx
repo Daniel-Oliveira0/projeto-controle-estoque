@@ -27,6 +27,7 @@ export const InventoryProvider = ({ children }) => {
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useInventory = () => {
     return useContext(InventoryContext);
 };

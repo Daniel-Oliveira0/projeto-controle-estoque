@@ -1,21 +1,21 @@
-.btn { 
-  padding: 10px 20px;
-  background-color: #F5E1C0; 
-  color: #333;
+.btn {
+  padding: 12px 25px;
+  background-color: #646cff; 
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #f3d097; 
-  transform: scale(1.05); 
+  background-color: #4fa3f7; 
+  transform: scale(1.05);
 }
 
 .btn:active {
-  background-color: #e8bb84; 
-  transform: scale(1.05); 
+  background-color: #3b89d6; 
+  transform: scale(1.05);
 }

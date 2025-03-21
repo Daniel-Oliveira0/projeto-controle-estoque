@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './AddProductForm.css'; 
 
 const AddProductForm = ({ onAddProduct }) => {
     const [title, setTitle] = useState("");
