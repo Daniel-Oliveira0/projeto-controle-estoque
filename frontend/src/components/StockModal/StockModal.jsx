@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import './StockModal.css';
 
-const StockModal = ({ isOpen, onClose }) => {
+const StockModal = ({ isOpen, onClose, fetchProducts }) => {  
   const [addedDate, setAddedDate] = useState("");
   const [removedProducts, setRemovedProducts] = useState([]);
 
@@ -9,9 +9,10 @@ const StockModal = ({ isOpen, onClose }) => {
     if (isOpen) {
       const formattedDate = new Date().toLocaleDateString();
       setAddedDate(formattedDate);
-      setRemovedProducts(["Produto A", "Produto B", "Produto C"]);
+
+      fetchProducts().then((products) => setRemovedProducts(products));
     }
-  }, [isOpen]);
+  }, [isOpen, fetchProducts]);
 
   if (!isOpen) return null;
 
@@ -23,7 +24,7 @@ const StockModal = ({ isOpen, onClose }) => {
         <p><strong>Produtos Removidos:</strong></p>
         <ul>
           {removedProducts.map((product, index) => (
-            <li key={index}>{product}</li>
+            <li key={index}>{product.name}</li>  
           ))}
         </ul>
         <button onClick={onClose}>Fechar</button>

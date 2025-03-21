@@ -3,23 +3,34 @@ import React, { useState } from "react";
 const AddProductForm = ({ onAddProduct }) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [quantity, setQuantity] = useState(""); 
+    const [quantity, setQuantity] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!title || !description || quantity === "") {
-            alert("Por favor, preencha todos os campos!");
+        if (!title || !description || !quantity || quantity <= 0) {
+            alert("Por favor, preencha todos os campos corretamente!");
             return;
         }
 
-        const newProduct = { title, description, quantity: Number(quantity) }; 
+        const newProduct = { title, description, quantity: Number(quantity) };
 
         try {
-            await onAddProduct(newProduct);
+            const response = await fetch("http://localhost:5000/products", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newProduct),
+            });
+
+            if (!response.ok) {
+                throw new Error("Erro ao adicionar produto");
+            }
+
+            const savedProduct = await response.json();
+            onAddProduct(savedProduct);
             setTitle("");
             setDescription("");
-            setQuantity(""); 
+            setQuantity("");
         } catch (error) {
             console.error(error);
             alert("Erro ao adicionar produto");
@@ -52,11 +63,17 @@ const AddProductForm = ({ onAddProduct }) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="quantity">Quantidade:</label>
-                    <input
+                    <input className="small-input" 
                         type="number"
                         id="quantity"
                         value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => {
+                            const value = Number(e.target.value);
+                            if (value >= 1) {
+                                setQuantity(value);
+                            }
+                        }}
+                        min="1"
                         required
                     />
                 </div>

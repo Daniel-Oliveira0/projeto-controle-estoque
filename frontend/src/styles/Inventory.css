@@ -76,6 +76,12 @@ ul {
     text-align: center;
 }
 
+.form-group .small-input {
+    width: 55px; 
+    text-align: center; 
+}
+
+
 button {
     padding: 10px 15px;
     margin-top: 10px;
