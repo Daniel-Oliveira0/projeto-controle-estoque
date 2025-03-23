@@ -1,13 +1,15 @@
 .add-product-form {
     padding: 20px;
-    background-color: #ddd;
+    width: 80%;
+    margin-left: 20px;
+    background-color: #646cff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .add-product-form h3 {
     font-size: 1.8rem;
-    color: #333;
+    color: #FFF;
     margin-bottom: 15px;
 }
 
@@ -18,7 +20,7 @@
 .form-group label {
     display: block;
     font-size: 1rem;
-    color: #555;
+    color: #FFF;
     margin-bottom: 5px;
 }
 
@@ -29,6 +31,10 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     text-align: center;
+}
+
+.form-group .small-input{
+    width: 20%;
 }
 
 button {

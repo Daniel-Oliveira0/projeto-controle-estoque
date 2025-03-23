@@ -23,20 +23,25 @@ const Inventory = () => {
 
     const addProduct = async (newProduct) => {
         try {
+            console.log("Dados enviados para o servidor:", newProduct); 
             const response = await fetch("http://localhost:5000/products", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newProduct),
             });
-
+    
             if (!response.ok) throw new Error("Erro ao adicionar produto");
-
+    
             const savedProduct = await response.json();
+            console.log('Produto adicionado:', savedProduct);
+    
             setProducts((prevProducts) => [...prevProducts, savedProduct]); 
+    
         } catch (error) {
             console.error(error);
         }
     };
+    
 
     const removeProduct = async (id) => {
         try {

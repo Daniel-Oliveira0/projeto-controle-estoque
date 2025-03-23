@@ -22,6 +22,7 @@ app.get('/products', async (req, res) => {
 
 app.post('/products', async (req, res) => {
   const { title, description, quantity } = req.body;
+  parseInt(req.body.quantity)
 
   if (!title || !description || quantity === undefined) {
     return res.status(400).json({ message: "Título, descrição e quantidade são obrigatórios" });
@@ -32,10 +33,12 @@ app.post('/products', async (req, res) => {
     const values = [title, description, quantity];
     const result = await pool.query(query, values);
 
+    console.log('Produto inserido:', result.rows[0]);
+
     res.status(201).json(result.rows[0]); 
   } catch (err) {
-    console.error('Erro ao adicionar produto:', err);
-    res.status(500).json({ message: "Erro ao adicionar produto" });
+    console.error('Erro ao adicionar produto:', err); 
+    res.status(400).json({ message: 'Erro ao adicionar produto', error: err.message });
   }
 });
 

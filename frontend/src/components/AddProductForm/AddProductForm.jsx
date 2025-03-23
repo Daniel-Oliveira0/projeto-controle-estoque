@@ -28,6 +28,7 @@ const AddProductForm = ({ onAddProduct }) => {
             }
 
             const savedProduct = await response.json();
+            console.log('Produto retornado após adição:', savedProduct); 
             onAddProduct(savedProduct);
             setTitle("");
             setDescription("");
