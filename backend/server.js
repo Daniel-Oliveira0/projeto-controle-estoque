@@ -23,18 +23,15 @@ app.post('/products', async (req, res) => {
   const { title, description, quantity } = req.body;
 
   try {
-    // Verificar se o produto já existe pelo título
     const existingProduct = await pool.query(
       'SELECT * FROM products WHERE title = $1',
       [title]
     );
 
     if (existingProduct.rows.length > 0) {
-      // Se o produto com o mesmo título já existir, retornamos um erro
       return res.status(409).json({ message: 'Produto já cadastrado com esse título.' });
     }
 
-    // Caso não exista, inserimos o novo produto
     const newProduct = await pool.query(
       'INSERT INTO products (title, description, quantity) VALUES ($1, $2, $3) RETURNING *',
       [title, description, quantity]

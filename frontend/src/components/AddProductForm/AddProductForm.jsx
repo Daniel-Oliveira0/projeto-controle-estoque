@@ -25,14 +25,11 @@ const AddProductForm = ({ onAddProduct }) => {
       const data = await response.json();
 
       if (response.status === 200) {
-        // Produto já existe, exibe uma mensagem sobre isso
         alert(`Produto já existe: ${data.product.title}`);
       } else if (response.status === 201) {
-        // Produto adicionado com sucesso
         alert('Produto adicionado com sucesso!');
         
-        // Aqui chamamos a função onAddProduct para notificar o componente pai
-        onAddProduct(data); // Passamos o produto adicionado para o componente pai
+        onAddProduct(data); 
       }
     } catch (error) {
       alert('Erro ao adicionar produto');

@@ -86,7 +86,6 @@ const Inventory = () => {
         ))}
       </ul>
 
-      {/* Modal de confirmação */}
       <RemoveProductModal 
         isOpen={isModalOpen} 
         onClose={closeModal} 
