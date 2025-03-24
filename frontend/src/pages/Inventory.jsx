@@ -38,7 +38,7 @@ const Inventory = () => {
       const savedProduct = await response.json();
       console.log('Produto adicionado:', savedProduct);
 
-      setProducts((prevProducts) => [...prevProducts, savedProduct]);
+      setProducts((prevProducts) => [...prevProducts, { id: savedProduct.id, ...savedProduct }]);
 
     } catch (error) {
       console.error(error);

@@ -19,28 +19,37 @@ app.get('/products', async (req, res) => {
   }
 });
 
-
 app.post('/products', async (req, res) => {
   const { title, description, quantity } = req.body;
-  parseInt(req.body.quantity)
-
-  if (!title || !description || quantity === undefined) {
-    return res.status(400).json({ message: "Título, descrição e quantidade são obrigatórios" });
-  }
 
   try {
-    const query = 'INSERT INTO products (title, description, quantity) VALUES ($1, $2, $3) RETURNING *';
-    const values = [title, description, quantity];
-    const result = await pool.query(query, values);
+    // Verificar se o produto já existe pelo título
+    const existingProduct = await pool.query(
+      'SELECT * FROM products WHERE title = $1',
+      [title]
+    );
 
-    console.log('Produto inserido:', result.rows[0]);
+    if (existingProduct.rows.length > 0) {
+      // Se o produto com o mesmo título já existir, retornamos um erro
+      return res.status(409).json({ message: 'Produto já cadastrado com esse título.' });
+    }
 
-    res.status(201).json(result.rows[0]); 
-  } catch (err) {
-    console.error('Erro ao adicionar produto:', err); 
-    res.status(400).json({ message: 'Erro ao adicionar produto', error: err.message });
+    // Caso não exista, inserimos o novo produto
+    const newProduct = await pool.query(
+      'INSERT INTO products (title, description, quantity) VALUES ($1, $2, $3) RETURNING *',
+      [title, description, quantity]
+    );
+
+    const addedProduct = newProduct.rows[0];
+    console.log('Produto adicionado:', addedProduct);
+
+    res.status(201).json(addedProduct);
+  } catch (error) {
+    console.error('Erro ao adicionar produto:', error);
+    res.status(500).json({ message: 'Erro ao adicionar produto' });
   }
 });
+
 
 app.delete('/products/:id', async (req, res) => {
   const { id } = req.params;

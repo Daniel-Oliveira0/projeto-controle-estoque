@@ -1,0 +1,53 @@
+.tabela-container {
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tabela-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .tabela th,
+  .tabela td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .tabela th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .tabela tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .tabela tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  button {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #ff4500;
+  }
+  
