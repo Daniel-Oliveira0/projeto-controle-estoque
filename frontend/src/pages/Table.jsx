@@ -4,7 +4,7 @@ import '../styles/Tabela.css';
 const Tabela = () => {
   const [products, setProducts] = useState([]);
 
-
+  
   useEffect(() => {
     fetchProducts();
   }, []);
