@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import AddProductForm from "../components/AddProductForm/AddProductForm";
-import RemoveProductModal from "../components/RemoveProductModal/RemoveProductModal"; 
-import '../styles/Inventory.css';
+import RemoveProductModal from "../components/RemoveProductModal/RemoveProductModal";
+import "../styles/Inventory.css";
 
 const Inventory = () => {
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productToRemove, setProductToRemove] = useState(null); 
+  const [productToRemove, setProductToRemove] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -24,35 +24,18 @@ const Inventory = () => {
     }
   };
 
-  const addProduct = async (newProduct) => {
-    try {
-      console.log("Dados enviados para o servidor:", newProduct);
-      const response = await fetch("http://localhost:5000/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newProduct),
-      });
-
-      if (!response.ok) throw new Error("Erro ao adicionar produto");
-
-      const savedProduct = await response.json();
-      console.log('Produto adicionado:', savedProduct);
-
-      setProducts((prevProducts) => [...prevProducts, { id: savedProduct.id, ...savedProduct }]);
-
-    } catch (error) {
-      console.error(error);
-    }
+  const addProduct = (newProduct) => {
+    setProducts((prevProducts) => [...prevProducts, newProduct]); 
   };
 
   const openModal = (product) => {
-    setProductToRemove(product); 
-    setIsModalOpen(true); 
+    setProductToRemove(product);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); 
-    setProductToRemove(null); 
+    setIsModalOpen(false);
+    setProductToRemove(null);
   };
 
   const handleConfirmRemove = async (id) => {
@@ -61,9 +44,8 @@ const Inventory = () => {
         method: "DELETE",
       });
 
-      setProducts((prevProducts) => prevProducts.filter(product => product.id !== id));
-      closeModal(); 
-
+      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+      closeModal();
     } catch (error) {
       console.error("Erro ao remover produto", error);
     }
@@ -72,9 +54,7 @@ const Inventory = () => {
   return (
     <div className="inventory-container">
       <h2>Estoque de Produtos</h2>
-
       <AddProductForm onAddProduct={addProduct} />
-
       <ul className="product-list">
         {products.map((product) => (
           <li key={product.id} className="product-item">
@@ -85,13 +65,7 @@ const Inventory = () => {
           </li>
         ))}
       </ul>
-
-      <RemoveProductModal 
-        isOpen={isModalOpen} 
-        onClose={closeModal} 
-        onConfirm={handleConfirmRemove} 
-        product={productToRemove} 
-      />
+      <RemoveProductModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirmRemove} product={productToRemove} />
     </div>
   );
 };

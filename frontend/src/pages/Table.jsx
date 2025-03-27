@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Tabela.css'; 
+import '../styles/Table.css'; 
 
 const Tabela = () => {
   const [products, setProducts] = useState([]);
 
-  
+
   useEffect(() => {
     fetchProducts();
   }, []);
