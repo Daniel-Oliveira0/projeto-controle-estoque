@@ -52,7 +52,7 @@ const AddProductForm = ({ onAddProduct }) => {
         <label htmlFor="quantity">Quantidade:</label>
         <input className="small-input" id="quantity" type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
       </div>
-      <button type="submit">Adicionar Produto</button>
+      <button className="button-form" type="submit">Adicionar Produto</button>
     </form>
   );
 };

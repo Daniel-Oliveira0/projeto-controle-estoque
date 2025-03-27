@@ -37,7 +37,7 @@
     width: 20%;
 }
 
-button {
+.button-form {
     padding: 10px 15px;
     margin-top: 10px;
     color: black;
@@ -49,11 +49,11 @@ button {
     transition: transform 0.3s ease-in-out, background-color 0.3s ease;
 }
 
-button:hover {
+.button-form:hover {
     background-color: #83e509;
     transform: scale(1.05);
 }
 
-button:active {
+.button-form:active {
     transform: scale(1.05);
 }

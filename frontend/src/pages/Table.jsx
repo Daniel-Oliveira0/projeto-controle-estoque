@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Header from '../components/Header/Header';
 import '../styles/Table.css'; 
 
 const Tabela = () => {
@@ -12,11 +13,11 @@ const Tabela = () => {
  
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:5000/stock"); 
+      const response = await fetch("http://localhost:5000/products"); 
       if (!response.ok) throw new Error("Erro ao buscar produtos");
-
+  
       const data = await response.json();
-      setProducts(data);
+      setProducts(data); 
     } catch (error) {
       console.error(error);
     }
@@ -42,9 +43,10 @@ const Tabela = () => {
   };
 
   return (
-    <div className="tabela-container">
+    <div className="table-container">
+      <Header/>
       <h2>Tabela de Produtos</h2>
-      <table className="tabela">
+      <table className="table">
         <thead>
           <tr>
             <th>Produto</th>
@@ -60,7 +62,7 @@ const Tabela = () => {
               <td>{product.description}</td>
               <td>{product.quantity}</td>
               <td>
-                <button onClick={() => removeProduct(product.id)}>Remover</button>
+                <button className='btn-table' onClick={() => removeProduct(product.id)}>Remover</button>
               </td>
             </tr>
           ))}
