@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useInventory } from "../../context/InventoryContext";
 import "./AddProductForm.css";
 
-const AddProductForm = ({ onAddProduct }) => {
+const AddProductForm = () => {
+  const { addProduct } = useInventory();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -9,33 +11,15 @@ const AddProductForm = ({ onAddProduct }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:5000/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          quantity: parseInt(quantity, 10),
-        }),
-      });
+    await addProduct({
+      title,
+      description,
+      quantity: parseInt(quantity, 10),
+    });
 
-      const data = await response.json();
-
-      if (response.status === 200) {
-        alert(`Produto já existe: ${data.product.title}`);
-      } else if (response.status === 201) {
-        onAddProduct(data);
-        setTitle("");
-        setDescription("");
-        setQuantity("");
-      }
-    } catch (error) {
-      alert("Erro ao adicionar produto");
-      console.error(error);
-    }
+    setTitle("");
+    setDescription("");
+    setQuantity("");
   };
 
   return (

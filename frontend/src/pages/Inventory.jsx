@@ -1,32 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useInventory } from "../context/InventoryContext";
 import AddProductForm from "../components/AddProductForm/AddProductForm";
 import RemoveProductModal from "../components/RemoveProductModal/RemoveProductModal";
 import "../styles/Inventory.css";
 
 const Inventory = () => {
-  const [products, setProducts] = useState([]);
+  const { products, fetchProducts } = useInventory();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToRemove, setProductToRemove] = useState(null);
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/products");
-      if (!response.ok) throw new Error("Erro ao buscar produtos");
-
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const addProduct = (newProduct) => {
-    setProducts((prevProducts) => [...prevProducts, newProduct]); 
-  };
 
   const openModal = (product) => {
     setProductToRemove(product);
@@ -44,7 +25,7 @@ const Inventory = () => {
         method: "DELETE",
       });
 
-      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+      await fetchProducts(); 
       closeModal();
     } catch (error) {
       console.error("Erro ao remover produto", error);
@@ -54,7 +35,7 @@ const Inventory = () => {
   return (
     <div className="inventory-container">
       <h2>Estoque de Produtos</h2>
-      <AddProductForm onAddProduct={addProduct} />
+      <AddProductForm />
       <ul className="product-list">
         {products.map((product) => (
           <li key={product.id} className="product-item">

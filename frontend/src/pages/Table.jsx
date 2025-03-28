@@ -1,42 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../components/Header/Header';
-import '../styles/Table.css'; 
+import React from "react";
+import { useInventory } from "../context/InventoryContext";
+import Header from "../components/Header/Header";
+import "../styles/Table.css";
 
 const Tabela = () => {
-  const [products, setProducts] = useState([]);
+  const { products, fetchProducts } = useInventory();
 
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
- 
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/products"); 
-      if (!response.ok) throw new Error("Erro ao buscar produtos");
-  
-      const data = await response.json();
-      setProducts(data); 
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  
   const removeProduct = async (productId) => {
     try {
-      
-      const response = await fetch(`http://localhost:5000/stock/${productId}`, {
-        method: 'DELETE',  
+      const response = await fetch(`http://localhost:5000/products/${productId}`, {
+        method: "DELETE",
       });
 
-      if (!response.ok) {
-        throw new Error("Erro ao remover produto");
-      }
+      if (!response.ok) throw new Error("Erro ao remover produto");
 
-      
-      setProducts(products.filter((product) => product.id !== productId));
+      await fetchProducts(); 
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +22,7 @@ const Tabela = () => {
 
   return (
     <div className="table-container">
-      <Header/>
+      <Header />
       <h2>Tabela de Produtos</h2>
       <table className="table">
         <thead>
@@ -62,7 +40,7 @@ const Tabela = () => {
               <td>{product.description}</td>
               <td>{product.quantity}</td>
               <td>
-                <button className='btn-table' onClick={() => removeProduct(product.id)}>Remover</button>
+                <button className="btn-table" onClick={() => removeProduct(product.id)}>Remover</button>
               </td>
             </tr>
           ))}
