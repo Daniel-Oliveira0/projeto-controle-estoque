@@ -38,7 +38,6 @@ app.post('/products', async (req, res) => {
     );
 
     const addedProduct = newProduct.rows[0];
-    console.log('Produto adicionado:', addedProduct);
 
     res.status(201).json(addedProduct);
   } catch (error) {
