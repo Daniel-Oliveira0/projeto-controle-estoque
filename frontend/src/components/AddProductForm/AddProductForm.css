@@ -28,6 +28,8 @@
     width: 80%;
     padding: 8px;
     font-size: 1rem;
+    background-color: #ddd;
+    color: #333;
     border: 1px solid #ddd;
     border-radius: 4px;
     text-align: center;
